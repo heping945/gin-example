@@ -1,0 +1,37 @@
+captcha:
+  key-long: 6
+  img-width: 120
+  img-height: 40
+casbin:
+  model-path: ./resource/rbac_model.conf
+jwt:
+  signing-key: qmPlus
+log:
+  prefix: '[GO-EXAMPLE]'
+  log-file: true
+  stdout: DEBUG
+  file: DEBUG
+mysql:
+  username: root
+  password: "123"
+  path: 127.0.0.1:3306
+  db-name: gin
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  max-idle-conns: 10
+  max-open-conns: 10
+  log-mode: false
+redis:
+  addr: 127.0.0.1:6379
+  password: ""
+  db: 0
+sqlite:
+  username: ""
+  password: ""
+  path: db.db
+  config: loc=Asia/Shanghai
+  log-mode: true
+system:
+  use-multipoint: false
+  env: public
+  addr: 9999
+  db-type: mysql
