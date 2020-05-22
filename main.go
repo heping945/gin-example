@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-
+	// 选择数据库的连接，和数据库迁移操作等分离
 	switch global.GVA_CONFIG.System.DbType {
 	case "mysql":
 		initialize.Mysql()
@@ -16,6 +16,7 @@ func main() {
 	default:
 		initialize.Mysql()
 	}
+	// 数据库迁移(连接的数据库实例)
 	initialize.DBTables()
 	// 程序结束前关闭数据库链接
 	defer global.GVA_DB.Close()

@@ -1,5 +1,7 @@
 package config
 
+import "time"
+
 type Server struct {
 	Mysql   Mysql   `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	Sqlite  Sqlite  `mapstructure:"sqlite" json:"sqlite" yaml:"sqlite"`
@@ -13,10 +15,12 @@ type Server struct {
 }
 
 type System struct {
-	UseMultipoint bool   `mapstructure:"use-multipoint" json:"useMultipoint" yaml:"use-multipoint"`
-	Env           string `mapstructure:"env" json:"env" yaml:"env"`
-	Addr          int    `mapstructure:"addr" json:"addr" yaml:"addr"`
-	DbType        string `mapstructure:"db-type" json:"dbType" yaml:"db-type"`
+	UseMultipoint bool          `mapstructure:"use-multipoint" json:"useMultipoint" yaml:"use-multipoint"`
+	Env           string        `mapstructure:"env" json:"env" yaml:"env"`
+	Addr          int           `mapstructure:"addr" json:"addr" yaml:"addr"`
+	DbType        string        `mapstructure:"db-type" json:"dbType" yaml:"db-type"`
+	ReadTimeout   time.Duration `mapstructure:"read-timeout" json:"ReadTimeout" yaml:"read-timeout"`
+	WriteTimeout  time.Duration `mapstructure:"write-timeout" json:"WriteTimeout" yaml:"write-timeout"`
 }
 
 type JWT struct {
@@ -70,3 +74,5 @@ type Sqlite struct {
 	Config   string `mapstructure:"config" json:"config" yaml:"config"`
 	LogMode  bool   `mapstructure:"log-mode" json:"logMode" yaml:"log-mode"`
 }
+
+// mapstructure这个属性和.yaml文件的字段会做映射

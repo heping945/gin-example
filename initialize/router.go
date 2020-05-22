@@ -1,6 +1,9 @@
 package initialize
 
 import (
+	"gin-example/global"
+	"gin-example/router"
+
 	//_ "gin-vue-admin/docs"
 	//"gin-vue-admin/global"
 	//"gin-vue-admin/middleware"
@@ -16,17 +19,21 @@ import (
 //初始化总路由
 
 func Routers() *gin.Engine {
+	//设置运行模式，开发模式选择debug，测试模式选择test，生产模式选择release
+	runningmode := global.GVA_CONFIG.System.Env
+	gin.SetMode(runningmode)
+	global.GVA_LOG.Info("running is mode", runningmode)
 	var Router = gin.Default()
 	//Router.Use(middleware.LoadTls())  // 打开就能玩https了
 	//global.GVA_LOG.Debug("use middleware logger")
 	// 跨域
 	Router.Use(middleware.Cors())
-	//global.GVA_LOG.Debug("use middleware cors")
+	global.GVA_LOG.Debug("use middleware cors")
 	//Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	//global.GVA_LOG.Debug("register swagger handler")
 	// 方便统一添加路由组前缀 多服务器上线使用
-	//ApiGroup := Router.Group("")
-	//router.InitUserRouter(ApiGroup)                  // 注册用户路由
+	ApiGroup := Router.Group("v1")
+	router.InitStudentRouter(ApiGroup) // 注册用户路由
 	//router.InitBaseRouter(ApiGroup)                  // 注册基础功能路由 不做鉴权
 	//router.InitMenuRouter(ApiGroup)                  // 注册menu路由
 	//router.InitAuthorityRouter(ApiGroup)             // 注册角色路由
@@ -38,11 +45,7 @@ func Routers() *gin.Engine {
 	//router.InitSystemRouter(ApiGroup)                // system相关路由
 	//router.InitCustomerRouter(ApiGroup)              // 客户路由
 	//router.InitAutoCodeRouter(ApiGroup)              // 创建自动化代码
-	//global.GVA_LOG.Info("router register success")
-	Router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	global.GVA_LOG.Info("router register success")
+
 	return Router
 }

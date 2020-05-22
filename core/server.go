@@ -9,10 +9,10 @@ import (
 )
 
 func RunServer() {
-	//if global.GVA_CONFIG.System.UseMultipoint {
-	//	// 初始化redis服务
-	//	initialize.Redis()
-	//}
+	if global.GVA_CONFIG.System.UseMultipoint {
+		// 初始化redis服务
+		initialize.Redis()
+	}
 	Router := initialize.Routers()
 	//Router.Static("/form-generator", "./resource/page")
 	address := fmt.Sprintf(":%d", global.GVA_CONFIG.System.Addr)
@@ -20,8 +20,8 @@ func RunServer() {
 	s := &http.Server{
 		Addr:           address,
 		Handler:        Router,
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
+		ReadTimeout:    global.GVA_CONFIG.System.ReadTimeout,  //10s
+		WriteTimeout:   global.GVA_CONFIG.System.WriteTimeout, //10s
 		MaxHeaderBytes: 1 << 20,
 	}
 	// 保证文本顺序输出

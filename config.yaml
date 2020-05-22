@@ -18,7 +18,7 @@ mysql:
   db-name: gin
   config: charset=utf8mb4&parseTime=True&loc=Local
   max-idle-conns: 10
-  max-open-conns: 10
+  max-open-conns: 100
   log-mode: false
 redis:
   addr: 127.0.0.1:6379
@@ -32,6 +32,11 @@ sqlite:
   log-mode: true
 system:
   use-multipoint: false
-  env: public
+  env: release
   addr: 9999
   db-type: mysql
+  read-timeout: 10000000000
+  write-timeout: 10000000000
+
+# debug/release/test
+
